@@ -4,7 +4,7 @@
 #include "count_greater_than.h"   
 
 static void run_array_mode();
-// static void run_matrix_mode();
+static void run_matrix_mode();
 
 int main(int argc, char* argv[]) 
 {
@@ -18,9 +18,9 @@ int main(int argc, char* argv[])
     if (mode == "array") {
         run_array_mode();
     }
-    // else if (mode == "matrix") {
-    //     run_matrix_mode();
-    // }
+    else if (mode == "matrix") {
+        run_matrix_mode();
+    }
     else {
         std::cout << "Invalid mode. Use 'array' or 'matrix'.\n";
         return 1;
@@ -41,14 +41,14 @@ static void run_array_mode()
     std::cout<<"The result is... "<<result<<"\n";
 }
 
-// static void run_matrix_mode() 
-// {
-//     int x;
-//     std::vector<std::vector<int>> matrix;
+static void run_matrix_mode() 
+{
+    int x;
+    std::vector<std::vector<int> > matrix;
 
-//     parse_matrix(x, matrix);
+    parse_matrix(x, matrix);
 
-//     int result = count_greater_than(matrix, x);
+    int result = count_greater_than(matrix, 0, x);
 
-//     std::cout<<"The result is... "<<result<<"\n";
-// }
+    std::cout<<"The result is... "<<result<<"\n";
+}
