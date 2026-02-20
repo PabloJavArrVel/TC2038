@@ -1,7 +1,8 @@
-# Ignore the compiled executable
-program
-*.o
+# Executables
+*.exe
 *.out
+*.app
+*.o
 
 # Ignore OS-specific files
 .DS_Store
