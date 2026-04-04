@@ -1,0 +1,7 @@
+--- test_cases/out04.txt	2025-03-20 12:33:47
++++ results/out04.txt	2026-04-04 16:07:40
+@@ -1,2 +1,2 @@
+-La autonomia minima de la bateria de un vehiculo electrico para viajar de 1 a 20 es: 94
+-1 14 20 
++La autonomia minima de la bateria de un vehiculo electrico para viajar de 1 a 20 es: 72
++1 6 14 19 20 

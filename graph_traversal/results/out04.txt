@@ -1,0 +1,2 @@
+La autonomia minima de la bateria de un vehiculo electrico para viajar de 1 a 20 es: 72
+1 6 14 19 20 
