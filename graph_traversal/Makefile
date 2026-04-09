@@ -21,8 +21,7 @@ test: $(TARGET)
 	@for num in $(TEST_NUMS); do \
 		expected=$(TEST_DIR)/out$$num.txt; \
 		actual=$(RESULTS_DIR)/out$$num.txt; \
-		$(TARGET) < $(TEST_DIR)/test$$num.txt 2>&1; \
-		cp output.txt $$actual; \
+		$(TARGET) < $(TEST_DIR)/test$$num.txt > $$actual 2>&1; \
 		if [ ! -f $$expected ]; then \
 			echo "⚠️  Test $$num: MISSING expected file"; \
 		elif diff -u $$expected $$actual > $(RESULTS_DIR)/$$num.diff 2>&1; then \

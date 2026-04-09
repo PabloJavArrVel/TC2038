@@ -62,6 +62,7 @@ https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
 
 
 #include <iostream>
+#include <clocale>
 #include "graph_traversal.h"
 
 int main() {
@@ -72,12 +73,12 @@ int main() {
       Graph g;
       int s, t, L;
       int minMax = -1;
-      bool isPossible = false;
-      std::vector<int> bestPath;
+      std::vector<int> shortestPath;
+      std::vector<int> feasiblePath;
 
       parse_input(g, s, t, L);
-      solve(g, s, t, L, bestPath, minMax, isPossible);
-      output_results(bestPath, minMax, isPossible,s,t,L);
+      solve(g, s, t, L, shortestPath, minMax, feasiblePath);
+      output_results(shortestPath, minMax, feasiblePath, s, t, L);
    } catch (const std::exception &e) {
         std::cerr << "Error: " << e.what() << "\n";
         return 1;

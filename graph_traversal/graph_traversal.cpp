@@ -8,7 +8,7 @@ void parse_input(Graph &g, int &s, int &t, int &L)
     if (!(std::cin >> s >> t >> L))
         throw std::invalid_argument("invalid input format for s t L");
 
-    std::cin.ignore();  // consume the leftover newline
+    std::cin.ignore();  
 
     if (s <= 0 || t <= 0 || L < 0) 
         throw std::invalid_argument(" invalid values for s, t or L\n");
@@ -21,33 +21,39 @@ void parse_input(Graph &g, int &s, int &t, int &L)
 }
 
 void solve(Graph &g, int s, int t, int L,
-           std::vector<int>& bestPath, int& minMax, bool& isPossible) {
-    int bestMax = INT_MAX;
-    std::vector<bool> visited(g.getNumNodes(), false);
-    std::vector<int> path;
+           std::vector<int>& shortestPath, int& minMax,
+           std::vector<int>& feasiblePath) {
 
-    g.dfsMinimax(s - 1, t - 1, visited, path, 0, bestMax, bestPath);
+    g.dijkstra(s - 1, t - 1, shortestPath, minMax);
 
-    if (!bestPath.empty()) {
-        minMax = bestMax;
-        if (bestMax <= L)
-            isPossible = true;
-    }
+    g.filterEdges(2 * L);
+    g.DFS(s - 1, t - 1, feasiblePath);
 }
 
-void output_results(const std::vector<int>& bestPath, int minMax, bool isPossible, int s, int t, int L)
-{
-    std::ofstream out("output.txt");
-    out << "La autonomia minima de la bateria de un vehiculo electrico para viajar de "
-        << s << " a " << t << " es: " << minMax << std::endl;
-    if (!isPossible) {
-        out << "No existe un camino factible para ir de la ciudad " << s 
-            << " a la ciudad " << t 
-            << " usando un vehiculo con autonomia " << L << std::endl;
-    } else {
-       for (auto& city : bestPath) {
-            out << city + 1 << " ";
-        }
-        out << std::endl;
+
+void output_results(const std::vector<int>& shortestPath, int minMax,
+                    const std::vector<int>& feasiblePath,
+                    int s, int t, int L) {
+
+    std::cout << "La autonomia mínima de la bateria de un vehículo eléctrico"
+              << " para viajar de " << s << " a " << t
+              << " es: " << minMax << "\n";
+    for (int city : shortestPath)
+        std::cout << city + 1 << " ";
+    std::cout << "\n";
+
+    if (feasiblePath.empty())
+        std::cout << "No existe un camino factible para ir de la ciudad "
+                  << s << " a la ciudad " << t
+                  << " usando un vehículo eléctrico con autonomía "
+                  << 2 * L << "\n";
+    else {
+         std::cout << "Si existe un camino factible para ir de la ciudad "
+                  << s << " a la ciudad " << t
+                  << " usando un vehículo eléctrico con autonomía "
+                  << 2 * L << ": ";
+        for (int city : feasiblePath)
+            std::cout << city + 1 << " ";
+        std::cout << "\n";
     }
 }

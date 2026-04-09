@@ -13,8 +13,6 @@ class Graph {
   private:
     int numNodes;
     int numEdges;
-    // Lista de adyacencia
-    // vector de listas ligadas de pares (vertice, peso)
     std::vector<std::list<std::pair<int, int>>> adjList;
   
     void split(std::string line, std::vector<int> &res);
@@ -24,13 +22,9 @@ class Graph {
     Graph();
     ~Graph();
     void readGraph(std::istream &input);
+    void filterEdges(int maxWeight);
     void print();
-    void DFS(int v, int t);
-    void dfsMinimax(int v, int t,
-                std::vector<bool>& visited,
-                std::vector<int>& path,
-                int currentMax,
-                int& bestMax,
-                std::vector<int>& bestPath);
+    void DFS(int s, int t, std::vector<int>& path);
+    void dijkstra(int s, int t, std::vector<int>& path, int& maxEdge);
     void BFS(int v);
 };
