@@ -27,9 +27,10 @@ Salida:
 - "Los dos talleres que más riesgo representan en Tultepec son A y B (distancia D)"
   donde D es la distancia euclidiana con dos decimales
 Referencias:
-Cormen, T. H., et al. (2022). Introduction to Algorithms (4th ed.). MIT Press.
 Shamos, M. I., & Hoey, D. (1975). Closest-point problems. 16th Annual Symposium
-on Foundations of Computer Science. IEEE.
+on Foundations of Computer Science.
+GeeksforGeeks. (2026). Closest pair of points using divide and conquer algorithm.
+Retrieved from https://www.geeksforgeeks.org/dsa/closest-pair-of-points-using-divide-and-conquer-algorithm/
 */
 
 #include <iostream>
@@ -39,6 +40,16 @@ on Foundations of Computer Science. IEEE.
 
 
 
+/*
+    Función: main
+    Propósito: ejecutar el flujo completo del programa
+
+    Retorna:
+    - 0 en ejecución exitosa
+    - 1 en caso de error
+
+    Complejidad: O(n log n)
+*/
 int main(){
     try {
         std::ios::sync_with_stdio(false);

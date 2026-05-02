@@ -8,6 +8,15 @@
 #include <string>
 #include <limits>
 
+/*
+    Función: parse_input
+    Propósito: leer los datos de entrada y construir el arreglo de talleres
+
+    Retorna:
+    - vector<Workshop> con los talleres leídos
+
+    Complejidad: O(n)
+*/
 std::vector<Workshop> parse_input() {
     int n;
     std::cin >> n;
@@ -26,6 +35,22 @@ std::vector<Workshop> parse_input() {
     return workshops;
 }
 
+/*
+    Función: solve
+    Propósito: encontrar el par de talleres más cercano utilizando
+    el algoritmo de divide y vencerás
+
+    Parámetros:
+    - workshops: lista de talleres
+
+    Retorna:
+    - tupla con:
+        * puntero al primer taller
+        * puntero al segundo taller
+        * distancia mínima entre ellos
+
+    Complejidad: O(n log n)
+*/
 std::tuple<const Workshop*, const Workshop*, double> solve(std::vector<Workshop>& workshops) {
 
     //Agnostic overhead (unmapping workshops to points O(N))
@@ -49,6 +74,16 @@ std::tuple<const Workshop*, const Workshop*, double> solve(std::vector<Workshop>
     return std::tuple(&workshops[i], &workshops[j], dist);
 }
 
+
+/*
+    Función: output_results
+    Propósito: imprimir el resultado en el formato requerido
+
+    Parámetros:
+    - result: tupla con los talleres más cercanos y su distancia
+
+    Complejidad: O(1)
+*/
 void output_results(const std::tuple<const Workshop*, const Workshop*, double>& result) {
     const Workshop* a = std::get<0>(result);
     const Workshop* b = std::get<1>(result);
@@ -63,13 +98,39 @@ void output_results(const std::tuple<const Workshop*, const Workshop*, double>& 
               << " (distancia " << dist << ")\n";
 }
 
+
+/*
+    Función: euclidean_dist
+    Propósito: calcular la distancia euclidiana entre dos puntos
+
+    Parámetros:
+    - p: primer punto
+    - q: segundo punto
+
+    Retorna:
+    - distancia euclidiana entre p y q
+
+    Complejidad: O(1)
+*/
 double euclidean_dist(Point &p, Point &q){
     double diffx = q.getX() - p.getX();
     double diffy = q.getY() - p.getY();
     return std::sqrt(diffx*diffx + diffy*diffy);
 }
 
-//O(n^2) since it does one point against all pairs
+/*
+    Función: brute_force
+    Propósito: encontrar el par de puntos más cercano evaluando
+    todas las combinaciones posibles
+
+    Parámetros:
+    - points: lista de puntos
+
+    Retorna:
+    - tupla con los dos puntos más cercanos y su distancia
+
+    Complejidad: O(n^2)
+*/
 std::tuple<Point, Point, double> brute_force(std::vector<Point>& points) {
     size_t n = points.size();
     size_t best_i = 0, best_j = 1;
@@ -89,15 +150,26 @@ std::tuple<Point, Point, double> brute_force(std::vector<Point>& points) {
     return std::tuple(points[best_i], points[best_j], min);
 }
 
+/*
+    Función: divide_conquer
+    Propósito: encontrar el par de puntos más cercano utilizando
+    la estrategia de divide y vencerás
 
-//O(nlog(n)) since we sort log(n) and then we check the regions 2 deltas wide n
+    Parámetros:
+    - points: lista de puntos
+
+    Retorna:
+    - tupla con los dos puntos más cercanos y su distancia mínima
+
+    Complejidad: O(n log n)
+*/
 std::tuple<const Point, const Point, double> divide_conquer(std::vector<Point>& points) {
     size_t n = points.size();
 
     if (n <= 3)
         return brute_force(points);
 
-     // Sort by X (log(n))
+     // Sort by X (nlog(n))
     std::sort(points.begin(), points.end(), [](const Point& a, const Point& b) {
         return a.getX() < b.getX();
     });
